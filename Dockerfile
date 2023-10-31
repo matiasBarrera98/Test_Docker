@@ -1,17 +1,16 @@
-FROM python:3.10-slim
+# Use an official Python runtime as the base image
+FROM python:3.10
 
-WORKDIR  /code
+# Set the working directory in the container
+WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Copy the current directory contents into the container at /app
+COPY ./requirements.txt /app
 
-RUN git clone https://github.com/matiasBarrera98/Test_Docker.git .
-RUN pip install -r requirements.txt
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "src/app.py"]
+# Define the command to run your app using streamlit
+CMD ["streamlit", "run", "--server.runOnSave", "true", "app.py"]

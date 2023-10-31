@@ -10,6 +10,7 @@ from google.cloud import storage
 from explain import main_funct
 from datetime import datetime
 import os
+import json
 
 from helpers import *
 
@@ -17,7 +18,7 @@ from helpers import *
 
 # Funcionalidad almacenamiento de los datos
 
-creds = Credentials.from_service_account_info(os.getenv('GCP_KEY'))
+creds = Credentials.from_service_account_info(json.loads(os.getenv('GCP')))
 bq_client = bigquery.Client(credentials=creds)
 storage_client = storage.Client(credentials=creds)
 model_url = "https://storage.googleapis.com/respaldo_api_cne/model_finetune.h5"

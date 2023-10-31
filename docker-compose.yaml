@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    container_name: capstone_compose_cont
+    command: streamlit run --server.runOnSave true app.py
+    ports:
+      - 8501:8501
+    volumes:
+      - ./src:/app
+    env_file:
+      - ./.env
